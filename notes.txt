@@ -1,0 +1,74 @@
+ToDo
+- implement page object organization
+- variables for selectors
+
+Test case notes
+
+E2E
+Home Page
+    search boxes: dropdown and click check box checks them 
+
+    Hovering over each city shows clickable links to search options
+    Featured properties carousel
+        Has link to more details
+            Check that title, city, id, and price are the same
+            Printed id should match link id
+    Connect with broker button works
+        Details are same
+    Check for broken images
+    Check for broken links  
+
+Top menu bar
+    Buy, rent, services, etc
+    Check that each leads to the correct url, and verify each page title
+
+Change language button
+    English
+    Bg
+    Russian
+    Verify url and that some text on the page is in correct language
+
+Credit calculator
+    Opens up
+    Iframe working
+    ProCreditBank logo visible
+        When clicked, leads to https://www.procreditbank.bg/ 
+    Tooltip: Hover over “Жилищен кредит” ! symbol - tooltip text displayed
+    Sliders work
+        Сума на кредита
+        Срок в месеци
+    Fields update automatically after moving sliders
+        Месечна вноска
+        Сума за връщане
+        Годишен процент на разходите(ГПР)
+    Click Кандидатствай - leads to https://www.procreditbank.bg/bg/za-chastni-lica/krediti/jilishten-kredit-nov-dom/
+
+    ***Suggestion - implement option to directly type, rather than having to use sliders
+
+Properties Search PAge
+https://www.yavlena.com/en/properties 
+    Map and list display toggle works
+        changing 
+    Filters - clicking, selecting, clearing
+    Search results number is correct, and results are shown, load more button works
+    array of selectors 
+        split by comma
+        ptype key, rest is value
+        built in method to get query params from url 
+    buy/rent > location > location breadcrumb is correct
+    Property id check
+        From search list
+        When clicking the property - verify correct id
+            Page url
+            Section title
+            message
+
+API
+Filtering data - might be more efficient to take care of in api tests
+    Endpoints and query params
+        ttps://www.yavlena.com/nomenclatures/getdistricts
+        https://www.yavlena.com/about/getofficeslocation
+        https://www.yavlena.com/home/getlocationinfo?cityName=%D0%A1%D0%BE%D1%84%D0%B8%D1%8F
+        https://www.yavlena.com/nomenclatures/getlocationquarters?locationId=4230
+        Check that each MainCityId returns valid array of objects for getlocationquarters locationid query param
+        getlocationquarters?locationId=${MainCityId}
