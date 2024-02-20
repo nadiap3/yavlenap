@@ -1,56 +1,29 @@
 import { test, expect } from "@playwright/test";
-//add in url check?
-test("view in map mode", async ({ page }) => {
-  await page.goto("https://www.yavlena.com/properties/all", {
-    waitUntil: "load",
-  });
-  //select map option
-  await page
-    .locator('.cards-search-nav .view-mode [data-option="results-map"]')
-    .first()
-    .click();
-  //verify map is visible
-  await expect(page.locator(".mapboxgl-map")).toBeVisible();
-  await expect(
-    page
-      .locator('.cards-search-nav .view-mode [data-option="results-map"]')
-      .first()
-  ).toHaveClass("active");
-  await expect(page.locator(".near-me-icon")).toBeVisible();
-  // verify list option button is there still
-  await expect(
-    page
-      .locator('.cards-search-nav .view-mode [data-option="results-list"]')
-      .first()
-  ).toBeVisible();
-});
-//add in url check?
-test("view in list mode", async ({ page }) => {
-  await page.goto("https://www.yavlena.com/properties/all", {
-    waitUntil: "load",
-  });
-  //select list view
-  await page
-    .locator('.cards-search-nav .view-mode [data-option="results-list"]')
-    .first()
-    .click();
-  await page.waitForTimeout(9000); //site loads slowly
-  //verify list is visible
-  await expect(page.locator(".list-results-list").first()).toBeVisible();
-  await expect(page.locator(".card-list-item").first()).toBeVisible();
-  await expect(page.locator(".list-header")).toBeVisible();
-  // verify map option button is there still
-  await expect(
-    page
-      .locator('.cards-search-nav .view-mode [data-option="results-map"]')
-      .first()
-  ).toBeVisible();
-});
+import PropertiesPage from "../pages/properties-page";
 
-test("filters", async ({ page }) => {
-  await page.goto("https://www.yavlena.com/properties/all", {
-    waitUntil: "load",
+test.describe("properties page tests", () => {
+  let propertiesPage: PropertiesPage;
+
+  test.beforeEach(async ({ page }) => {
+    propertiesPage = new PropertiesPage(page);
+    await propertiesPage.goto();
   });
-  //select some filters
-  //verify they are reflected in the url
+
+  test("view in map mode", async () => {
+    await propertiesPage.mapBtn.first().click();
+    await expect(propertiesPage.mapBox).toBeVisible();
+    await expect(propertiesPage.mapBtn.first()).toHaveClass("active");
+    await expect(propertiesPage.nearMeBtn).toBeVisible();
+    await expect(propertiesPage.listBtn.first()).toBeVisible();
+  });
+
+  test("view in list mode", async ({ page }) => {
+    await propertiesPage.listBtn.first().click();
+    //TODO: get around this timeout (site loads slowly - adjust settings for waits in config possibly)
+    await page.waitForTimeout(9000);
+    await expect(propertiesPage.listResults.first()).toBeVisible();
+    await expect(propertiesPage.propertyListItem.first()).toBeVisible();
+    await expect(propertiesPage.propertyListHeader).toBeVisible();
+    await expect(propertiesPage.mapBtn.first()).toBeVisible();
+  });
 });

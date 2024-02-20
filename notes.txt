@@ -1,6 +1,7 @@
 ToDo
 - implement page object organization
 - variables for selectors
+- try to get around using .first()
 
 Test case notes
 
