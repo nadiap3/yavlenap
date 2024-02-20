@@ -9,6 +9,8 @@ export default class PropertiesPage {
   readonly listResults: Locator;
   readonly propertyListItem: Locator;
   readonly propertyListHeader: Locator;
+  readonly propertyTypeFilter: Locator;
+  readonly roomCheckbox: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -23,6 +25,8 @@ export default class PropertiesPage {
     this.listResults = page.locator(".list-results-list");
     this.propertyListItem = page.locator(".card-list-item");
     this.propertyListHeader = page.locator(".list-header");
+    this.propertyTypeFilter = page.locator('[placeholder="Тип имот"]');
+    this.roomCheckbox = page.locator('div [value="Room"] ~ ins');
   }
 
   async goto() {

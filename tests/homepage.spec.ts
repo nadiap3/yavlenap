@@ -1,20 +1,22 @@
 import { test, expect } from "@playwright/test";
+import HomePage from "../pages/home-page";
+import PropertiesPage from "../pages/properties-page";
 
-test("selected filter carries over to properties page", async ({ page }) => {
-  await page.goto("https://www.yavlena.com/", {
-    waitUntil: "load",
+test.describe("homepage tests", () => {
+  let homePage: HomePage;
+  let propertiesPage: PropertiesPage;
+
+  test.beforeEach(async ({ page }) => {
+    homePage = new HomePage(page);
+    await homePage.goto();
   });
-  //click filter dropdown
-  await page
-    .locator(".search-dropdown:first-child .search-area")
-    .first()
-    .click();
-  //click checkbox room
-  await page.locator('div [value="Room"] ~ ins').first().click();
-  //click search
-  await page.locator('[data-search-field="new-search"]').first().click();
-  await page.locator('[placeholder="Тип имот"]').first().click();
-  await expect(page.locator('div [value="Room"] ~ ins')).toBeChecked();
 
-  // add url check - query param
+  test("selected filter carries over to properties page", async ({ page }) => {
+    propertiesPage = new PropertiesPage(page);
+    await homePage.propertyTypeField.first().click();
+    await homePage.roomCheckbox.first().click();
+    await homePage.searchBtn.first().click();
+    await propertiesPage.propertyTypeFilter.first().click();
+    await expect(propertiesPage.roomCheckbox).toBeChecked();
+  });
 });
