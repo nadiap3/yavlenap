@@ -6,63 +6,68 @@ ToDo
 Test case notes
 
 E2E
+
+
 Home Page
-    search boxes: dropdown and click check box checks them 
 
-    Hovering over each city shows clickable links to search options
-    Featured properties carousel
-        Has link to more details
-            Check that title, city, id, and price are the same
-            Printed id should match link id
-    Connect with broker button works
-        Details are same
-    Check for broken images
-    Check for broken links  
+    - Scroll down to Featured properties carousel
+    - Verify that ID matches the anchor url
+    - Verify that CTA button is available
+    - click connect with broker button  
+    - in popup
+        - verify correct property name, id, location, price are the same
+        - verify that send button is visible and active
 
-Top menu bar
-    Buy, rent, services, etc
-    Check that each leads to the correct url, and verify each page title
+
+    - Check if Right arrow exists
+        - If yes -> Clcik it and repeat the process 3 times
+    
 
 Change language button
     English
     Bg
     Russian
     Verify url and that some text on the page is in correct language
+international const thing
 
-Credit calculator
-    Opens up
-    Iframe working
-    ProCreditBank logo visible
-        When clicked, leads to https://www.procreditbank.bg/ 
-    Tooltip: Hover over “Жилищен кредит” ! symbol - tooltip text displayed
-    Sliders work
-        Сума на кредита
-        Срок в месеци
-    Fields update automatically after moving sliders
-        Месечна вноска
-        Сума за връщане
-        Годишен процент на разходите(ГПР)
-    Click Кандидатствай - leads to https://www.procreditbank.bg/bg/za-chastni-lica/krediti/jilishten-kredit-nov-dom/
 
-    ***Suggestion - implement option to directly type, rather than having to use sliders
+Service Page - uslugi 
+1. verify that online message button is visible and active
+2. verify that clicking online message button loads popup
+3. inside popup, click send button 
+    verify that popup requires fields to be filled before sending
 
-Properties Search PAge
+Properties Search Page
 https://www.yavlena.com/en/properties 
     Map and list display toggle works
-        changing 
-    Filters - clicking, selecting, clearing
-    Search results number is correct, and results are shown, load more button works
-    array of selectors 
-        split by comma
-        ptype key, rest is value
-        built in method to get query params from url 
-    buy/rent > location > location breadcrumb is correct
-    Property id check
-        From search list
-        When clicking the property - verify correct id
-            Page url
-            Section title
-            message
+        - select list view button
+        - verify that property results are displayed in the list view
+        - verify that map is not visible
+
+        
+    Filters
+        - click property type Filter
+        - select all zhileshtni imoti
+        - verify that url contains all of the selected types 
+        (extract string, split into array, check against array of elements)
+
+
+brokers page
+
+1. check that all brokers have needed information
+    - load all brokers
+    - get their data in an array
+    - verify that each broker has name, location, properties, phone numbers
+
+2. filtering by office
+    - select office filtering
+    - select an office
+    - verify that all the brokers that load have that office location listed
+
+
+
+
+
 
 API
 Filtering data - might be more efficient to take care of in api tests
