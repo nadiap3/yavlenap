@@ -19,6 +19,7 @@ export const safeInnerText = async (
   try {
     return await locator.innerText();
   } catch (error) {
+    console.error(error);
     return null;
   }
 };

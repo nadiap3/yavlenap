@@ -64,4 +64,25 @@ test.describe("brokers page tests", () => {
 
     await expect(incompleteBrokers.length).toBe(0);
   });
+
+  test("filter by office", async ({ page }) => {
+    brokersPage.waitForBrokersLoaded();
+    const allOffices = await brokersPage.officeLabelOptions.all();
+
+    for (let i = 0; i < allOffices.length; i++) {
+      await brokersPage.officeInput.click();
+      await allOffices[i].click();
+      // TODO: Update waiting mechanism
+      await page.waitForTimeout(1000);
+
+      const officeName = await safeInnerText(allOffices[i]);
+
+      const allBrokerElements = await brokersPage.brokerCards.all();
+
+      for (const broker of allBrokerElements) {
+        const brokerAddress = await safeInnerText(broker.locator(".office"));
+        expect.soft(brokerAddress).toContain(officeName);
+      }
+    }
+  });
 });
