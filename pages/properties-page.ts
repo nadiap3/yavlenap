@@ -1,4 +1,9 @@
 import type { Page, Locator } from "@playwright/test";
+import {
+  assertElementIsNotVisible,
+  assertElementIsVisible,
+  convertPricesToNumbers,
+} from "../utils";
 
 export default class PropertiesPage {
   readonly page: Page;
@@ -11,6 +16,10 @@ export default class PropertiesPage {
   readonly propertyListHeader: Locator;
   readonly propertyTypeFilter: Locator;
   readonly roomCheckbox: Locator;
+  readonly resultsHolder: Locator;
+  readonly sortByField: Locator;
+  readonly priceDescending: Locator;
+  readonly loadingIcon: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -27,9 +36,33 @@ export default class PropertiesPage {
     this.propertyListHeader = page.locator(".list-header");
     this.propertyTypeFilter = page.locator('[placeholder="Тип имот"]');
     this.roomCheckbox = page.locator('div [value="Room"] ~ ins');
+    this.resultsHolder = page.locator(".search-results-map-holder");
+    this.sortByField = page
+      .getByRole("complementary")
+      .locator("span")
+      .filter({ hasText: "Най-нови (отгоре)" });
+    this.priceDescending = page.getByRole("complementary").getByText("Цена ▼");
+    this.loadingIcon = page.locator(".results-loading");
   }
 
   async goto() {
     await this.page.goto("https://www.yavlena.com/properties/all");
+  }
+
+  async extractAllPropertyPrices() {
+    const cardsArr = await this.resultsHolder.locator(".card-search").all();
+    const allPricesNumbers: number[] = await Promise.all(
+      cardsArr.map(async (el) => {
+        const price = await el.locator(".price-label").innerText();
+
+        return convertPricesToNumbers(price);
+      })
+    );
+    return allPricesNumbers;
+  }
+
+  async waitForResults() {
+    await assertElementIsVisible(this.loadingIcon.first());
+    await assertElementIsNotVisible(this.loadingIcon.first());
   }
 }

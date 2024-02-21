@@ -1,6 +1,9 @@
 import { test, expect } from "@playwright/test";
 import PropertiesPage from "../pages/properties-page";
-import { assertElementIsVisible } from "../utils/index";
+import {
+  assertElementIsVisible,
+  assertElementIsNotVisible,
+} from "../utils/index";
 
 test.describe("properties page tests", () => {
   let propertiesPage: PropertiesPage;
@@ -26,5 +29,21 @@ test.describe("properties page tests", () => {
     await assertElementIsVisible(propertiesPage.propertyListItem.first());
     await assertElementIsVisible(propertiesPage.propertyListHeader);
     await assertElementIsVisible(propertiesPage.mapBtn.first());
+  });
+
+  test("sort by price", async () => {
+    await assertElementIsVisible(propertiesPage.resultsHolder);
+    await propertiesPage.sortByField.click();
+    await propertiesPage.priceDescending.click();
+    await propertiesPage.waitForResults();
+
+    const allPricesNumbers = await propertiesPage.extractAllPropertyPrices();
+
+    expect(allPricesNumbers.length).toBeGreaterThan(0);
+
+    const copiedArr = [...allPricesNumbers];
+    const sortedPrices = copiedArr.sort((a, b) => b - a);
+
+    expect(sortedPrices).toEqual(allPricesNumbers);
   });
 });
