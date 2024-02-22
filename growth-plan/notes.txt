@@ -1,14 +1,20 @@
 ToDo
-- implement page object organization
-- variables for selectors
 - try to get around using .first()
+- improve waits
 
 Test case notes
 
-E2E
-
+E2E Tests
 
 Home Page
+1. Selected filter carries over to properties page
+    - click property type dropdown 
+    - select a property type
+    - click Search
+    - on properties page, click the property type dropdown
+    - verify that the previously selected property type is selected
+
+
 
     - Scroll down to Featured properties carousel
     - Verify that ID matches the anchor url
@@ -22,13 +28,18 @@ Home Page
     - Check if Right arrow exists
         - If yes -> Clcik it and repeat the process 3 times
     
+2. Switch language to English
+    - verify default language is Bulgarian
+    - click language selector
+    - click English
+    - verify language on the page has changed to English
 
+3. Switch language to Russian
 Change language button
-    English
-    Bg
-    Russian
-    Verify url and that some text on the page is in correct language
-international const thing
+    - verify default language is Bulgarian
+    - click language selector
+    - click Russian
+    - verify language on the page has changed to Russian
 
 
 Service Page - uslugi 
