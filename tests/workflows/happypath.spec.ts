@@ -19,3 +19,30 @@
 //         - verify that popup loads
 //         - verify that broker name and phone number are visible
 //         - verify that the property id in the pre-written message is correct
+
+import { test, expect } from "@playwright/test";
+import HomePage from "../../pages/home-page";
+import PropertiesPage from "../../pages/properties-page";
+
+test.describe("happypath", () => {
+  let homePage: HomePage;
+  let propertiesPage: PropertiesPage;
+
+  test.beforeEach(async ({ page }) => {
+    homePage = new HomePage(page);
+    propertiesPage = new PropertiesPage(page);
+  });
+
+  test("Search for apartment and connect with broker", async () => {
+    await homePage.goto();
+    await homePage.searchFor.click();
+    await homePage.dropdownOptionRent.click(); //unselects rent
+    await homePage.propertyTypeField.click();
+    await homePage.propertyTypeThirdOption.first().click();
+    //TODO: magic text constant for sofia
+    await homePage.generalSearchBox.fill("София");
+    await homePage.searchBtn.first().click();
+    //TODO: continue with rest of flow
+    await expect(propertiesPage.nearMeBtn).toBeVisible(); //temp to check loading page
+  });
+});
