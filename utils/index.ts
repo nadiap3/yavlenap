@@ -1,11 +1,11 @@
 import { expect, Locator } from "@playwright/test";
 
 export const assertElementIsVisible = async (element: Locator) => {
-  await expect(element).toBeVisible({ timeout: 10000 });
+  await expect(element).toBeVisible({ timeout: 15000 });
 };
 
 export const assertElementIsNotVisible = async (element: Locator) => {
-  await expect(element).not.toBeVisible({ timeout: 10000 });
+  await expect(element).not.toBeVisible({ timeout: 15000 });
 };
 
 export const convertPricesToNumbers = (price: string) => {

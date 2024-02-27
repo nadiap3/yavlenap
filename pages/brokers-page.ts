@@ -24,9 +24,12 @@ export default class BrokersPage {
   async goto() {
     await this.page.goto("https://www.yavlena.com/broker/");
   }
-
   async waitForBrokersLoaded() {
     await assertElementIsVisible(this.loadingIndicator);
     await assertElementIsNotVisible(this.loadingIndicator);
+  }
+  async waitForLoad() {
+    this.page.locator('div[style*="display: block"]');
+    this.page.locator('div[style*="display: none"]');
   }
 }

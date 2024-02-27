@@ -71,12 +71,13 @@ test.describe("brokers page tests", () => {
 
     for (let i = 0; i < allOffices.length; i++) {
       await brokersPage.officeInput.click();
+      await brokersPage.officeLabelOptions.all();
       await allOffices[i].click();
       // TODO: Update waiting mechanism
+      await brokersPage.waitForLoad();
       await page.waitForTimeout(1000);
 
       const officeName = await safeInnerText(allOffices[i]);
-
       const allBrokerElements = await brokersPage.brokerCards.all();
 
       for (const broker of allBrokerElements) {
