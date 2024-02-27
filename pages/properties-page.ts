@@ -20,6 +20,7 @@ export default class PropertiesPage {
   readonly sortByField: Locator;
   readonly priceDescending: Locator;
   readonly loadingIcon: Locator;
+  readonly priceFilter: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -34,15 +35,15 @@ export default class PropertiesPage {
     this.listResults = page.locator(".list-results-list");
     this.propertyListItem = page.locator(".card-list-item");
     this.propertyListHeader = page.locator(".list-header");
-    this.propertyTypeFilter = page.locator('[placeholder="Тип имот"]');
+    this.propertyTypeFilter = page.locator(
+      '[data-search-field="property-type"]'
+    );
     this.roomCheckbox = page.locator('div [value="Room"] ~ ins');
     this.resultsHolder = page.locator(".search-results-map-holder");
-    this.sortByField = page
-      .getByRole("complementary")
-      .locator("span")
-      .filter({ hasText: "Най-нови (отгоре)" });
-    this.priceDescending = page.getByRole("complementary").getByText("Цена ▼");
+    this.sortByField = page.locator(".sort-filters .dropdown-trigger");
+    this.priceDescending = page.getByRole("complementary").getByText("Цена ▼"); //only other option I see is by nth child...
     this.loadingIcon = page.locator(".results-loading");
+    this.priceFilter = page.locator('[data-search-field="price-search"]');
   }
 
   async goto() {

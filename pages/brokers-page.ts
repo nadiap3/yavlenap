@@ -5,7 +5,6 @@ export default class BrokersPage {
   readonly page: Page;
   readonly loadMoreBrokersBtn: Locator;
   readonly loadingIndicator: Locator;
-  readonly officeWrapper: Locator;
   readonly officeInput: Locator;
   readonly officeLabelOptions: Locator;
   readonly brokerCards: Locator;
@@ -14,12 +13,9 @@ export default class BrokersPage {
     this.page = page;
     this.loadMoreBrokersBtn = page.locator(".load-more-results-list");
     this.loadingIndicator = page.locator(".brokers-loading");
-    this.officeWrapper = page.locator("div[data-prefix='Офис']");
-    this.officeInput = page.locator(
-      "div[data-prefix='Офис'] input.placeholder"
-    );
+    this.officeInput = page.locator("[data-filter='offices'] #serviceChoice");
     this.officeLabelOptions = page.locator(
-      "div[data-prefix='Офис'] .checkbox-holder > label"
+      "[data-container='broker-offices'] > label"
     );
 
     this.brokerCards = page.locator(".broker-list > .broker-card");
