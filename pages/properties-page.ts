@@ -21,6 +21,16 @@ export default class PropertiesPage {
   readonly priceDescending: Locator;
   readonly loadingIcon: Locator;
   readonly priceFilter: Locator;
+  readonly propertyMinPrice: Locator;
+  readonly propNoMinOption: Locator;
+  readonly propertyMaxPrice: Locator;
+  readonly propMaxOption4: Locator;
+  readonly cardSearchPropResult: Locator;
+  readonly propertyModal: Locator;
+  readonly btnConnectWithBroker: Locator;
+  readonly btnConnectBrokerSubmit: Locator;
+  readonly brokerMessageModal: Locator;
+  readonly btnSendBrokerMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -44,6 +54,22 @@ export default class PropertiesPage {
     this.priceDescending = page.getByRole("complementary").getByText("Цена ▼"); //only other option I see is by nth child...
     this.loadingIcon = page.locator(".results-loading");
     this.priceFilter = page.locator('[data-search-field="price-search"]');
+    this.propertyMinPrice = page.locator(
+      ".min-price[data-search-options='price-from']"
+    );
+    this.propNoMinOption = page.locator(
+      ".min-price[data-search-options='price-from'] :first-child"
+    );
+    this.propertyMaxPrice = page.locator("#PropertyMaxPrice");
+    this.propMaxOption4 = page.locator(
+      '.max-price[data-search-options="price-to"] :nth-child(4)'
+    );
+    this.cardSearchPropResult = page.locator(".card-search").first();
+    this.propertyModal = page.locator(".estate-wrapper");
+    this.btnConnectWithBroker = page.locator(".broker-card-partial-send-msg");
+    this.btnConnectBrokerSubmit = page.locator('type="submit"');
+    this.brokerMessageModal = page.locator("#send-broker-message");
+    this.btnSendBrokerMessage = page.locator('.modal-footer [type="submit"]');
   }
 
   async goto() {
